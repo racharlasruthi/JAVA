@@ -1,0 +1,55 @@
+import java.io.*;
+import java.util.*;
+class Register {
+    
+    //private static Register register = null;
+    /*
+     * Complete the 'getTotalBill' function below.
+     *
+     * The function is expected to return a STRING.
+     * The function accepts MAP itemDetails as parameter.
+     */
+     private static class SingletonHolder {
+        private static final Register register = new Register();
+    }
+    
+    public static Register getInstance() {
+        return SingletonHolder.register;
+    }
+    
+
+    public String getTotalBill(Map<String,Integer> itemDetails) {
+    Float bill=0.0f;
+    String totalBill=null;
+       for (Map.Entry<String,Integer> set : itemDetails.entrySet()) {
+            if(set.getKey().equalsIgnoreCase("apple"))
+                bill=bill+set.getValue()*2.0f;
+            if(set.getKey().equalsIgnoreCase("orange"))
+                bill=bill+set.getValue()*1.5f;
+            if(set.getKey().equalsIgnoreCase("mango"))
+                bill=bill+set.getValue()*1.2f;
+            if(set.getKey().equalsIgnoreCase("grape"))
+                bill=bill+set.getValue()*1.0f;
+            
+        }
+    totalBill=String.valueOf(bill);
+    return totalBill;
+    }
+
+}
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        
+        Scanner readInput = new Scanner(System.in);        
+        String[] input=readInput.nextLine().split(" ");                
+        Map<String,Integer> myItems=new HashMap<String,Integer>();
+        for(int i=0;i<input.length;i+=2){
+          myItems.put(input[i],Integer.parseInt(input[i+1]));	
+        }
+        Register regObj = Register.getInstance();        
+        System.out.println(regObj.getTotalBill(myItems));
+        readInput.close();
+        
+    }
+}
